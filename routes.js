@@ -2,8 +2,15 @@ const router = require('express').Router();
 const {body} = require('express-validator');
 const {register} = require('./controllers/registerController');
 const {login} = require('./controllers/loginController');
+const {getAllUsers} = require('./controllers/getAllUsersController');
+const {initializeDatabase} = require('./controllers/initializeDatabaseController');
+const path = require('path');
+const fs = require('fs');
+const conn = require('./database').promise();
 
-const e = require('cors');
+
+var cors = require('cors')
+router.use(cors());
 
 router.post('/register', [
     body('fName',"The name must be a minimum of 3 characters")
@@ -44,4 +51,7 @@ router.post('/login',[
     .isLength({ min: 4 }),
 ], login);
 
+
+router.get('/getAllUsers', getAllUsers);
+router.get('/initializeDB', initializeDatabase);
 module.exports = router;
