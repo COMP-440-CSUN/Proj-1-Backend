@@ -9,8 +9,9 @@ exports.register = async( req, res, next) => {
     }
 
     try{
+        var query = "SELECT `email` FROM `users` WHERE `email`=?";
         const[row] = await conn.execute(
-            "SELECT `email` FROM `users` WHERE `email`=?",
+            query,
             [req.body.email]
         );
 
@@ -19,9 +20,9 @@ exports.register = async( req, res, next) => {
                 message: "The e-mail entered is already in use",
             });
         }
-
+        var insert = 'INSERT INTO `users`(`fName`,`lName`,`email`,`password`,`username`) VALUES(?,?,?,?,?)';
         const hashPass = await bcrypt.hash(req.body.password, 12);
-        const [rows] = await conn.execute('INSERT INTO `users`(`fName`,`lName`,`email`,`password`,`username`) VALUES(?,?,?,?,?)',[
+        const [rows] = await conn.execute(insert,[
             req.body.fName,
             req.body.lName,
             req.body.email,

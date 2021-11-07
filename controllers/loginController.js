@@ -10,10 +10,12 @@ exports.login = async (req, res, next) =>{
     }
 
     try{
-        
+        //Using placeholders to prevent sql injection
+        var query = 'SELECT * FROM ??` WHERE `username`=?"';
+        var values = [ `users`, req.body.username];
         const [row] = await conn.execute(
-            "SELECT * FROM `users` WHERE `username`=?",
-            [req.body.username]
+            query,
+            values
           );
 
         if (row.length === 0) {
@@ -30,7 +32,7 @@ exports.login = async (req, res, next) =>{
         }
 
         const theToken = jwt.sign({id:row[0].id},'the-super-strong-secrect',{ expiresIn: '1h' });
-
+        console.log("Login Successful");
         return res.json({
             token:theToken,
             message: "Login Successful"

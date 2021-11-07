@@ -4,9 +4,6 @@ const {register} = require('./controllers/registerController');
 const {login} = require('./controllers/loginController');
 const {getAllUsers} = require('./controllers/getAllUsersController');
 const {initializeDatabase} = require('./controllers/initializeDatabaseController');
-const path = require('path');
-const fs = require('fs');
-const conn = require('./database').promise();
 
 
 var cors = require('cors')
