@@ -4,15 +4,18 @@ const {validationResult} = require('express-validator');
 const conn = require('../database').promise();
 
 exports.login = async (req, res, next) =>{
+    console.log("Login Successful");
     const errors = validationResult(req);
+    console.log(errors);
     if(!errors.isEmpty()){
         return res.status(422).json({ errors: errors.array() });
     }
 
     try{
         //Using placeholders to prevent sql injection
-        var query = 'SELECT * FROM ??` WHERE `username`=?"';
-        var values = [ `users`, req.body.username];
+        var query = "SELECT * FROM `users` WHERE `email`=?";
+        var values = [req.body.email];
+        console.log(values);
         const [row] = await conn.execute(
             query,
             values
@@ -20,7 +23,7 @@ exports.login = async (req, res, next) =>{
 
         if (row.length === 0) {
             return res.status(422).json({
-                message: "Invalid username",
+                message: "Invalid email",
             });
         }
 
@@ -32,7 +35,7 @@ exports.login = async (req, res, next) =>{
         }
 
         const theToken = jwt.sign({id:row[0].id},'the-super-strong-secrect',{ expiresIn: '1h' });
-        console.log("Login Successful");
+        
         return res.json({
             token:theToken,
             message: "Login Successful"
