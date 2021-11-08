@@ -38,7 +38,7 @@ router.post('/register', [
 ], register);
 
 router.post('/login',[
-    body('username', "Invalid username")
+    body('email', "Invalid email")
     .notEmpty()
     .escape()
     .trim(),
