@@ -1,4 +1,4 @@
-const conn = require('../database').promise();
+const conn = require('../../database').promise();
 
 exports.getAllUsers = async(req, res, next) => {
     try{

@@ -1,6 +1,6 @@
 const {validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
-const conn = require('../database').promise();
+const conn = require('../../database').promise();
 
 exports.register = async( req, res, next) => {
     const errors = validationResult(req);

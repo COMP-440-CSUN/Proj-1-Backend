@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const {body} = require('express-validator');
-const {register} = require('./controllers/registerController');
-const {login} = require('./controllers/loginController');
-const {getAllUsers} = require('./controllers/getAllUsersController');
-const {initializeDatabase} = require('./controllers/initializeDatabaseController');
-
+const {register} = require('./controllers/login_register_Controller/registerController');
+const {login} = require('./controllers/login_register_Controller/loginController');
+const {getAllUsers} = require('./controllers/login_register_Controller/getAllUsersController');
+const {initializeDatabase} = require('./controllers/login_register_Controller/initializeDatabaseController');
+const {createBlog} = require('./controllers/blogControllers/createBlogController');
 
 var cors = require('cors')
 router.use(cors());
@@ -34,7 +34,6 @@ router.post('/register', [
     .notEmpty()
     .trim()
     .isLength({min: 8}),
-    
 ], register);
 
 router.post('/login',[
@@ -47,6 +46,22 @@ router.post('/login',[
     .trim()
     .isLength({ min: 4 }),
 ], login);
+
+router.post('/postBlog',[
+    body('description', "Please enter a description")
+    .notEmpty()
+    .escape()
+    .trim(),
+    body('subject',"The subject cannot be empty") 
+    .notEmpty()
+    .escape()
+    .trim(),
+    body('username',"The username cannot be empty") 
+    .notEmpty()
+    .escape()
+    .trim()
+    .isLength({ min: 4 }),
+], createBlog);
 
 
 router.get('/getAllUsers', getAllUsers);

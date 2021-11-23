@@ -2,7 +2,7 @@ const express = require('express');
 const routes = require('./routes');
 var cors = require('cors')
 const app = express();
-const {register} = require('./controllers/registerController');
+
 const {validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const conn = require('./database').promise();
