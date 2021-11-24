@@ -5,8 +5,14 @@ const {login} = require('./controllers/login_register_Controller/loginController
 const {getAllUsers} = require('./controllers/login_register_Controller/getAllUsersController');
 const {initializeDatabase} = require('./controllers/login_register_Controller/initializeDatabaseController');
 const {createBlog} = require('./controllers/blogControllers/createBlogController');
-
-var cors = require('cors')
+const {createComment} = require('./controllers/blogControllers/createCommentController');
+const {postTag, addTags} = require("./controllers/blogControllers/addTagsToBlogController");
+const {getAllBlogs} = require("./controllers/viewControllers/getAllBlogs");
+var cors = require('cors');
+const { ResultWithContext } = require('express-validator/src/chain');
+const { getTagsbyBlog } = require('./controllers/viewControllers/getTagsByBlog');
+const { getCommentsbyBlog } = require('./controllers/viewControllers/getCommentsByBlogs');
+const { getBlogByUser } = require('./controllers/viewControllers/getBlogsPostedByUser');
 router.use(cors());
 
 router.post('/register', [
@@ -63,7 +69,56 @@ router.post('/postBlog',[
     .isLength({ min: 4 }),
 ], createBlog);
 
+router.post('/postComment',[
+    body('sentiment', "Please enter a description")
+    .notEmpty()
+    .escape()
+    .trim(),
+    body('description',"The subject cannot be empty") 
+    .notEmpty()
+    .escape()
+    .trim(),
+    body('posted_by',"The username cannot be empty") 
+    .notEmpty()
+    .escape()
+    .trim()
+    .isLength({ min: 4 }),
+    body('blogID',"The blogID must have a vlue") 
+],createComment)
+
+router.post('/addTag', [
+    body('blogid', "Please enter blog id")
+    .notEmpty()
+    .escape()
+    .trim(),
+    body('tag', 'enter tag')
+    .notEmpty()
+    .escape()
+    .trim()
+], addTags)
+
+router.get('/getTagsbyBlogID', [
+    body('blogid', "Please enter blog id")
+    .notEmpty()
+    .escape()
+    .trim(),
+], getTagsbyBlog)
+
+router.get('/getCommentsPerBlog', [
+    body('blogid', "Please enter blog id")
+    .notEmpty()
+    .escape()
+    .trim(),
+], getCommentsbyBlog);
+
+router.get('/getBlogsByUser',[
+    body('username', "Please enter username")
+    .notEmpty()
+    .escape()
+    .trim(),
+], getBlogByUser);
 
 router.get('/getAllUsers', getAllUsers);
 router.get('/initializeDB', initializeDatabase);
+router.get('/getAllBlogs', getAllBlogs);
 module.exports = router;
