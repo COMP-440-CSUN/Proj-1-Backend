@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const {validationResult} = require('express-validator');
-const conn = require('../database').promise();
+const conn = require('../../database').promise();
 
 exports.login = async (req, res, next) =>{
     console.log("Login Successful");
