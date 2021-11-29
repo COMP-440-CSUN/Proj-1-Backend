@@ -14,15 +14,10 @@ exports.getBlogByUser = async(req, res, next) => {
             values
 
         );
-        if(rows.length === 0){
-            return res.status(201).json({
-                message: "user has not posted a blog"
-            });
-        } else{
+        
             return res.status(201).json({
                 rows
             });
-        }
        
     } catch(err){
         next(err);

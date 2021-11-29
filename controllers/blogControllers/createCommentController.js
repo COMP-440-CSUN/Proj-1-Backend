@@ -40,9 +40,12 @@ exports.createComment = async(req, res, next) => {
                     insert,
                     insertValues
                 );
+                console.log("Posted");
+                console.log(finalInsert);
                 return res.status(201).json({
                     message: "Comment successfully inserted",
                 });
+                
             }
             else{
                 return res.status(201).json({
@@ -56,11 +59,6 @@ exports.createComment = async(req, res, next) => {
                 message: "You can only post 3 comments per day"
             })
         }
-        
-
-
-        
-
     } catch(err){
         next(err);
     }

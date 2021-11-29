@@ -13,6 +13,7 @@ const { ResultWithContext } = require('express-validator/src/chain');
 const { getTagsbyBlog } = require('./controllers/viewControllers/getTagsByBlog');
 const { getCommentsbyBlog } = require('./controllers/viewControllers/getCommentsByBlogs');
 const { getBlogByUser } = require('./controllers/viewControllers/getBlogsPostedByUser');
+const { getBlogByID } = require('./controllers/viewControllers/getBlogsById');
 router.use(cors());
 
 router.post('/register', [
@@ -104,11 +105,11 @@ router.get('/getTagsbyBlogID', [
     .trim(),
 ], getTagsbyBlog)
 
-router.get('/getCommentsPerBlog', [
-    body('blogid', "Please enter blog id")
+router.post('/getCommentsPerBlog', [
+    body('blogID', "Please enter blog id")
     .notEmpty()
     .escape()
-    .trim(),
+    .trim()
 ], getCommentsbyBlog);
 
 router.get('/getBlogsByUser',[
@@ -117,6 +118,13 @@ router.get('/getBlogsByUser',[
     .escape()
     .trim(),
 ], getBlogByUser);
+
+router.post('/getBlogByID', [
+    body('blogID', "Please enter blog id")
+    .notEmpty()
+    .escape()
+    .trim(),
+], getBlogByID);
 
 router.get('/getAllUsers', getAllUsers);
 router.get('/initializeDB', initializeDatabase);
