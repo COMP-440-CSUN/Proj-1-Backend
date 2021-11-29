@@ -37,8 +37,7 @@ exports.login = async (req, res, next) =>{
         const theToken = jwt.sign({id:row[0].id},'the-super-strong-secrect',{ expiresIn: '1h' });
         
         return res.json({
-            token:theToken,
-            message: "Login Successful"
+            row
         });
         
 
