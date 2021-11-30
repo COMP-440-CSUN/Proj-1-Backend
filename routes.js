@@ -84,7 +84,11 @@ router.post('/postComment',[
     .escape()
     .trim()
     .isLength({ min: 4 }),
-    body('blogID',"The blogID must have a vlue") 
+    body('blogID',"The blogID must have a value"),
+    body('blogPoster', "this field cannot be empty")
+    .notEmpty()
+    .escape()
+    .trim()
 ],createComment)
 
 router.post('/addTag', [
@@ -98,7 +102,7 @@ router.post('/addTag', [
     .trim()
 ], addTags)
 
-router.get('/getTagsbyBlogID', [
+router.post('/getTagsbyBlogID', [
     body('blogid', "Please enter blog id")
     .notEmpty()
     .escape()
