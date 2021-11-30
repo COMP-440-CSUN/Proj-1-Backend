@@ -29,8 +29,9 @@ exports.createBlog = async(req, res, next) => {
                 insert,
                 insertValues
             )
+            console.log(finalInsert.insertId);
             return res.status(201).json({
-                message: "Blog was successfully inserted",
+                blogId: finalInsert.insertId
             });
         }
         else{
