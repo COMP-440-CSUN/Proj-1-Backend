@@ -14,6 +14,12 @@ const { getTagsbyBlog } = require('./controllers/viewControllers/getTagsByBlog')
 const { getCommentsbyBlog } = require('./controllers/viewControllers/getCommentsByBlogs');
 const { getBlogByUser } = require('./controllers/viewControllers/getBlogsPostedByUser');
 const { getBlogByID } = require('./controllers/viewControllers/getBlogsById');
+const { followUser } = require('./controllers/followerController/followUser');
+const { getSameFollowers } = require('./controllers/viewControllers/getSameFollowers');
+const { getUsersWhoNeverPostedBlogs } = require('./controllers/viewControllers/getUsersWhoNeverPostedBlogs');
+const { getUsersWhoPostedOnSameDate } = require('./controllers/viewControllers/getUsersPostedOnDate');
+const { getPositiveBlogsByUser } = require('./controllers/viewControllers/getPositiveBlogsByUser');
+
 router.use(cors());
 
 router.post('/register', [
@@ -130,7 +136,38 @@ router.post('/getBlogByID', [
     .trim(),
 ], getBlogByID);
 
+router.post('/follow', [
+    body('leader_name', "Please enter leader name")
+    .notEmpty()
+    .escape()
+    .trim(),
+    body('follower_name', "Please enter follower name")
+    .notEmpty()
+    .escape()
+    .trim(),
+], followUser);
+
+router.post('/getSameFollowers', [
+    body('follower_one', "Please enter leader name")
+    .notEmpty()
+    .escape()
+    .trim(),
+    body('follower_two', "Please enter follower name")
+    .notEmpty()
+    .escape()
+    .trim(),
+], getSameFollowers);
+
+router.post('/getMostPositiveBlogs', [
+    body('username', "Please enter username")
+    .notEmpty()
+    .escape()
+    .trim()
+], getPositiveBlogsByUser);
+
 router.get('/getAllUsers', getAllUsers);
 router.get('/initializeDB', initializeDatabase);
 router.get('/getAllBlogs', getAllBlogs);
+router.get('/usersWhoNeverPostedBlog', getUsersWhoNeverPostedBlogs);
+router.get('/userWhoPostedOnSameDate', getUsersWhoPostedOnSameDate);
 module.exports = router;
