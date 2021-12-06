@@ -19,6 +19,7 @@ const { getSameFollowers } = require('./controllers/viewControllers/getSameFollo
 const { getUsersWhoNeverPostedBlogs } = require('./controllers/viewControllers/getUsersWhoNeverPostedBlogs');
 const { getUsersWhoPostedOnSameDate } = require('./controllers/viewControllers/getUsersPostedOnDate');
 const { getPositiveBlogsByUser } = require('./controllers/viewControllers/getPositiveBlogsByUser');
+const { getAllBlogsWithPositiveCommentsOnly } = require('./controllers/viewControllers/getAllBlogsWithPostitiveCommentsOnly');
 
 router.use(cors());
 
@@ -170,4 +171,5 @@ router.get('/initializeDB', initializeDatabase);
 router.get('/getAllBlogs', getAllBlogs);
 router.get('/usersWhoNeverPostedBlog', getUsersWhoNeverPostedBlogs);
 router.get('/userWhoPostedOnSameDate', getUsersWhoPostedOnSameDate);
+router.get('/getBlogsWithPositiveCommentsOnly', getAllBlogsWithPositiveCommentsOnly);
 module.exports = router;
