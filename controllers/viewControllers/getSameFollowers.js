@@ -7,7 +7,7 @@ exports.getSameFollowers = async(req, res, next) => {
         return res.status(422).json({errors: errors.array()});
     }
     try{
-        var query = "SELECT `leader_name` from `follows` as a where `leader_name` in (select `leader_name` from `follows` as b where a.leader_name = b.leader_name and `follower_name` = ?) and `follower_name` = ?";
+        var query = "SELECT DISTINCT `leader_name` from `follows` as a where `leader_name` in (select `leader_name` from `follows` as b where a.leader_name = b.leader_name and `follower_name` = ?) and `follower_name` = ?";
         var values = [req.body.follower_one, req.body.follower_two];
         const[rows] = await conn.execute(query, values);
         if(rows.length === 0){

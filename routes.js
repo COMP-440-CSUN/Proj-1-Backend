@@ -171,7 +171,7 @@ router.get('/getAllUsers', getAllUsers);
 router.get('/initializeDB', initializeDatabase);
 router.get('/getAllBlogs', getAllBlogs);
 router.get('/usersWhoNeverPostedBlog', getUsersWhoNeverPostedBlogs);
-router.get('/userWhoPostedOnSameDate', getUsersWhoPostedOnSameDate);
+router.get('/usersWhoPostedOnSameDate', getUsersWhoPostedOnSameDate);
 router.get('/getBlogsWithPositiveCommentsOnly', getAllBlogsWithPositiveCommentsOnly);
 router.get('/getUsersWhoOnlyPostedNegativeComments', getUsersWhoPostedNegativeOnly);
 module.exports = router;
