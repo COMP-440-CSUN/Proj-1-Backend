@@ -20,6 +20,7 @@ const { getUsersWhoNeverPostedBlogs } = require('./controllers/viewControllers/g
 const { getUsersWhoPostedOnSameDate } = require('./controllers/viewControllers/getUsersPostedOnDate');
 const { getPositiveBlogsByUser } = require('./controllers/viewControllers/getPositiveBlogsByUser');
 const { getAllBlogsWithPositiveCommentsOnly } = require('./controllers/viewControllers/getAllBlogsWithPostitiveCommentsOnly');
+const { getUsersWhoPostedNegativeOnly } = require('./controllers/viewControllers/getUsersWhoOnlyPostedNegative');
 
 router.use(cors());
 
@@ -123,7 +124,7 @@ router.post('/getCommentsPerBlog', [
     .trim()
 ], getCommentsbyBlog);
 
-router.get('/getBlogsByUser',[
+router.post('/getBlogsByUser',[
     body('username', "Please enter username")
     .notEmpty()
     .escape()
@@ -172,4 +173,5 @@ router.get('/getAllBlogs', getAllBlogs);
 router.get('/usersWhoNeverPostedBlog', getUsersWhoNeverPostedBlogs);
 router.get('/userWhoPostedOnSameDate', getUsersWhoPostedOnSameDate);
 router.get('/getBlogsWithPositiveCommentsOnly', getAllBlogsWithPositiveCommentsOnly);
+router.get('/getUsersWhoOnlyPostedNegativeComments', getUsersWhoPostedNegativeOnly);
 module.exports = router;
